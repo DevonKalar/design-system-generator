@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: dsg-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dsg
+      POSTGRES_PASSWORD: dsg
+      POSTGRES_DB: dsg
+    # 5433 on the host so this never collides with a system Postgres on 5432.
+    ports:
+      - '5433:5432'
+    volumes:
+      # Postgres 18+ images want the mount at /var/lib/postgresql, not .../data —
+      # they store data in a major-version subdirectory. Mounting .../data fails to boot.
+      - dsg-pgdata:/var/lib/postgresql
+      - ./scripts/init-test-db.sql:/docker-entrypoint-initdb.d/10-init-test-db.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U dsg -d dsg']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  dsg-pgdata:

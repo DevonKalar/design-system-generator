@@ -1,0 +1,16 @@
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "semi": true,
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "overrides": [
+    {
+      "files": "apps/web/**/*.{ts,tsx,css}",
+      "options": {
+        "tailwindStylesheet": "./apps/web/src/index.css"
+      }
+    }
+  ]
+}

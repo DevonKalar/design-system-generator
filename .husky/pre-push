@@ -1,0 +1,4 @@
+# Typecheck and unit tests live here rather than pre-commit: a full-workspace tsc on
+# every commit is slow enough that people start reaching for --no-verify.
+pnpm typecheck
+pnpm test
