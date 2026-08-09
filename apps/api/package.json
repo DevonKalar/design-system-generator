@@ -1,0 +1,43 @@
+{
+  "name": "@dsg/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.mjs",
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "@dsg/contracts": "workspace:*",
+    "@dsg/tokens": "workspace:*",
+    "archiver": "8.0.0",
+    "cookie-parser": "1.4.7",
+    "drizzle-orm": "0.45.2",
+    "express": "5.2.1",
+    "google-auth-library": "11.0.0",
+    "jose": "6.2.8",
+    "pg": "8.23.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@types/archiver": "8.0.0",
+    "@types/cookie-parser": "1.4.10",
+    "@types/express": "5.0.6",
+    "@types/node": "26.2.0",
+    "@types/pg": "8.21.0",
+    "@types/supertest": "7.2.1",
+    "drizzle-kit": "0.31.10",
+    "supertest": "7.2.2",
+    "tsdown": "0.22.14",
+    "tsx": "4.23.11",
+    "typescript": "7.0.2",
+    "unrun": "0.3.1",
+    "vitest": "4.1.10"
+  }
+}
