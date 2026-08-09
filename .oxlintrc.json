@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "react", "import"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "warn"
+  },
+  "env": {
+    "es2024": true
+  },
+  "rules": {
+    "no-console": "off",
+    "unicorn/no-null": "off",
+    "typescript/consistent-type-imports": "error",
+    "typescript/no-explicit-any": "error",
+    "eqeqeq": "error",
+    // Fires on every `describe` block and on generators that build long string literals,
+    // neither of which is improved by being split up.
+    "max-lines-per-function": "off",
+    // Every regex here is ASCII-only, so the flag would be pure ceremony.
+    "require-unicode-regexp": "off",
+    // Side-effect imports are the point in a few places (env bootstrapping, CSS entry files).
+    "import/no-unassigned-import": "off",
+    // An arbitrary cap that route and app-composition files exceed by their nature.
+    "import/max-dependencies": "off",
+    // Predates the automatic JSX runtime, which this app uses (jsx: "react-jsx").
+    "react/react-in-jsx-scope": "off"
+  },
+  "overrides": [
+    {
+      "files": ["apps/api/**", "e2e/**", "*.config.ts", "**/drizzle.config.ts"],
+      "env": { "node": true }
+    },
+    {
+      "files": ["apps/web/**"],
+      "env": { "browser": true }
+    },
+    {
+      "files": ["**/__tests__/**"],
+      "rules": {
+        "typescript/no-explicit-any": "off",
+        "typescript/no-non-null-assertion": "off",
+        // Splitting a suite to satisfy a line count would scatter related cases.
+        "max-lines": "off"
+      }
+    },
+    {
+      "files": ["**/*.d.ts"],
+      "rules": {
+        // `export {}` is what makes an ambient file a module so `declare global` works.
+        "unicorn/require-module-specifiers": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "coverage",
+    "apps/api/src/db/migrations",
+    "test-results",
+    "playwright-report"
+  ]
+}
